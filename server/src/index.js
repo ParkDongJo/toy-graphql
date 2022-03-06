@@ -1,4 +1,5 @@
 import express from 'express';
+import { ApolloServer } from "apollo-server-express"; 
 import cors from 'cors';
 
 const app = express();
@@ -10,9 +11,18 @@ app.use(cors({
     credentials: true
 }));
 
-app.get("/", (req, res) => {
-    res.send("ok")
-});
+const server = ApolloServer({
+    typeDefs: schema,
+    resolvers,
+    context: {
+        models: {
+            messages: "",
+            users: "",
+        }
+    }
+})
+
+server.applyMiddleware({ app, path: '/graphql' })
 
 app.listen(8000, () => {
     console.log('server listening on');
