@@ -4,15 +4,15 @@ const messageSchema = gql`
     type Message {
         id: ID!,
         text: String!,
-        user: User!,
+        userId: ID!,
     }
 
     extend type Query {
-        messages(cusor: ID): [Message!]!
+        messages: [Message!]!
         message(id: ID): Message!
     }
 
-    extend type Mutation {
+    extend type Mutaion {
         createMessage(text: String!, userId: ID!): Message!
         updateMessage(id: ID!, text: String!, userId: ID!): Message!
         deleteMessage(id: ID!, userId: ID!): ID!
